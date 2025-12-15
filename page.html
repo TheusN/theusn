@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Matheus Nattan - Full Stack Developer | Self-Hosting Enthusiast | Vibe Coding Practitioner">
+    <meta name="author" content="Matheus Nattan">
+    <meta property="og:title" content="Matheus Nattan - Full Stack Developer">
+    <meta property="og:description" content="Desenvolvedor Full Stack apaixonado por self-hosting, SaaS e vibe coding.">
+    <meta property="og:type" content="website">
+    <title>Matheus Nattan | Full Stack Developer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1b2e;
+            --bg-card: #1e1f35;
+            --accent-primary: #6c63ff;
+            --accent-secondary: #ff6b9d;
+            --accent-tertiary: #00d9ff;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --gradient-1: linear-gradient(135deg, #6c63ff 0%, #ff6b9d 100%);
+            --gradient-2: linear-gradient(135deg, #00d9ff 0%, #6c63ff 100%);
+            --gradient-3: linear-gradient(135deg, #ff6b9d 0%, #ffa500 100%);
+            --glow: 0 0 40px rgba(108, 99, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(108, 99, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(108, 99, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow-1 {
+            top: -200px;
+            right: -200px;
+            background: var(--accent-primary);
+        }
+
+        .bg-glow-2 {
+            bottom: -200px;
+            left: -200px;
+            background: var(--accent-secondary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header / Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 8px;
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+
+        .typewriter {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: var(--accent-tertiary);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+
+        .typewriter::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Social Buttons */
+        .social-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.6s ease 0.4s both;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--glow);
+        }
+
+        .social-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .social-btn.github:hover { border-color: #fff; }
+        .social-btn.instagram:hover { border-color: #E4405F; }
+        .social-btn.steam:hover { border-color: #00adee; }
+        .social-btn.email:hover { border-color: #ea4335; }
+        .social-btn.discord:hover { border-color: #5865F2; }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-indicator svg {
+            width: 32px;
+            height: 32px;
+            color: var(--text-muted);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 48px;
+        }
+
+        /* Code Block - About */
+        .code-block {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background: #ff5f56; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #27ca40; }
+
+        .code-content {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .code-keyword { color: #ff79c6; }
+        .code-string { color: #f1fa8c; }
+        .code-property { color: #8be9fd; }
+        .code-bracket { color: #bd93f9; }
+        .code-comment { color: #6272a4; }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(108, 99, 255, 0.5);
+            box-shadow: var(--glow);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .project-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-tertiary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 10px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            padding: 4px 10px;
+            background: rgba(108, 99, 255, 0.15);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+        }
+
+        /* Pirate Card Special */
+        .project-card.pirate {
+            grid-column: span 2;
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 107, 157, 0.1) 100%);
+            border-color: rgba(255, 107, 157, 0.3);
+        }
+
+        .project-card.pirate::before {
+            background: var(--gradient-3);
+        }
+
+        .project-card.pirate:hover {
+            border-color: rgba(255, 107, 157, 0.6);
+            box-shadow: 0 0 40px rgba(255, 107, 157, 0.2);
+        }
+
+        .pirate-disclaimer {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .project-card.pirate {
+                grid-column: span 1;
+            }
+        }
+
+        /* Tech Stack */
+        .tech-section {
+            margin-bottom: 40px;
+        }
+
+        .tech-section h3 {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-primary);
+        }
+
+        .tech-badge img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Gaming Section */
+        .gaming-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gaming-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .vac-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(255, 0, 0, 0.15);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 50px;
+            color: #ff6b6b;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .gaming-story {
+            color: var(--text-secondary);
+            font-style: italic;
+            max-width: 500px;
+            margin: 0 auto 20px;
+            line-height: 1.8;
+        }
+
+        .gaming-verdict {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #22c55e;
+        }
+
+        /* Current Activities */
+        .activities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateX(5px);
+        }
+
+        .activity-icon {
+            font-size: 1.5rem;
+        }
+
+        .activity-text {
+            font-size: 0.95rem;
+        }
+
+        .activity-text strong {
+            color: var(--accent-primary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .footer-credit {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 60px 16px;
+            }
+
+            .social-buttons {
+                gap: 8px;
+            }
+
+            .social-btn {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+
+            .social-btn span {
+                display: none;
+            }
+
+            .social-btn svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .code-content {
+                padding: 16px;
+            }
+
+            .project-card {
+                padding: 20px;
+            }
+
+            .gaming-section {
+                padding: 30px 20px;
+            }
+
+            .tech-badge {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-badge">
+            <span>Disponível para projetos</span>
+        </div>
+        <h1>Matheus <span>Nattan</span></h1>
+        <p class="hero-subtitle">Full Stack Developer • Self-Hosting Enthusiast</p>
+        <p class="typewriter" id="typewriter">Vibe Coding Practitioner</p>
+        
+        <div class="social-buttons">
+            <a href="https://github.com/theusnattan" target="_blank" class="social-btn github">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <span>GitHub</span>
+            </a>
+            <a href="https://instagram.com/theusnattan" target="_blank" class="social-btn instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <span>Instagram</span>
+            </a>
+            <a href="https://steamcommunity.com/id/theusnattan" target="_blank" class="social-btn steam">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/></svg>
+                <span>Steam</span>
+            </a>
+            <a href="mailto:matheusnattan8@gmail.com" class="social-btn email">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+                <span>Email</span>
+            </a>
+            <a href="https://discord.com/users/theusn" target="_blank" class="social-btn discord">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                <span>Discord</span>
+            </a>
+        </div>
+
+        <a href="#about" class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </a>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title fade-in">🧑‍💻 <span>Sobre mim</span></h2>
+            <p class="section-subtitle fade-in">Quem é o cara por trás do código</p>
+            
+            <div class="code-block fade-in">
+                <div class="code-header">
+                    <div class="code-dot red"></div>
+                    <div class="code-dot yellow"></div>
+                    <div class="code-dot green"></div>
+                </div>
+                <div class="code-content">
+                    <pre><span class="code-keyword">const</span> <span class="code-property">theusn</span> = <span class="code-bracket">{</span>
+    <span class="code-property">nome</span>: <span class="code-string">"Matheus Nattan"</span>,
+    <span class="code-property">localização</span>: <span class="code-string">"Brasil 🇧🇷"</span>,
+    <span class="code-property">papel</span>: <span class="code-string">"Full Stack Developer"</span>,
+    
+    <span class="code-property">stack</span>: <span class="code-bracket">{</span>
+        <span class="code-property">frontend</span>: [<span class="code-string">"React"</span>, <span class="code-string">"Next.js"</span>, <span class="code-string">"TypeScript"</span>, <span class="code-string">"Tailwind"</span>],
+        <span class="code-property">backend</span>: [<span class="code-string">"Node.js"</span>, <span class="code-string">"Firebase"</span>, <span class="code-string">"PostgreSQL"</span>, <span class="code-string">"Supabase"</span>],
+        <span class="code-property">devOps</span>: [<span class="code-string">"Docker"</span>, <span class="code-string">"EasyPanel"</span>, <span class="code-string">"Linux"</span>, <span class="code-string">"Nginx"</span>],
+        <span class="code-property">vibeCoding</span>: [<span class="code-string">"Claude Code"</span>, <span class="code-string">"Lovable"</span>, <span class="code-string">"Firebase Studio"</span>]
+    <span class="code-bracket">}</span>,
+    
+    <span class="code-property">interesses</span>: [
+        <span class="code-string">"Self-Hosting 🖥️"</span>,
+        <span class="code-string">"SaaS Development 💼"</span>,
+        <span class="code-string">"Media Servers 🎬"</span>,
+        <span class="code-string">"Gaming 🎮"</span>
+    ],
+    
+    <span class="code-property">funFact</span>: <span class="code-string">"Prefiro hospedar eu mesmo do que depender de terceiros 😎"</span>
+<span class="code-bracket">}</span>;</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sites & Systems Section -->
+    <section id="sites">
+        <div class="container">
+            <h2 class="section-title fade-in">🌐 <span>Sites & Sistemas</span></h2>
+            <p class="section-subtitle fade-in">Alguns projetos que coloquei no ar</p>
+            
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-icon">🏨</div>
+                    <h3>Ecoporto Resort</h3>
+                    <p>Site institucional do resort com sistema de reservas e informações completas.</p>
+                    <a href="https://ecoportoresort.com/" target="_blank" class="project-link">
+                        ecoportoresort.com →
+                    </a>
+                    <div class="project-tech">
+                        <span class="tech-tag">WordPress</span>
+                        <span class="tech-tag">Elementor</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-icon">🌊</div>
+                    <h3>Ecoporto Day Use</h3>
+                    <p>Sistema de reservas para day use do resort com interface moderna.</p>
+                    <a href="https://dayuse.ecoportoresort.com/" target="_blank" class="project-link">
+                        dayuse.ecoportoresort.com →
+                    </a>
+                    <div class="project-tech">
+                        <span class="tech-tag">Vite</span>
+                        <span class="tech-tag">React</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-icon">📡</div>
+                    <h3>TRG Fiber</h3>
+                    <p>Site institucional de provedor de internet fibra óptica.</p>
+                    <a href="https://trgfiber.com.br/" target="_blank" class="project-link">
+                        trgfiber.com.br →
+                    </a>
+                    <div class="project-tech">
+                        <span class="tech-tag">WordPress</span>
+                        <span class="tech-tag">Elementor</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-icon">🏠</div>
+                    <h3>OmniImobi</h3>
+                    <p>Sistema completo de gestão imobiliária com dashboard administrativo.</p>
+                    <a href="https://omniimobi.com/" target="_blank" class="project-link">
+                        omniimobi.com →
+                    </a>
+                    <div class="project-tech">
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">Firebase</span>
+                    </div>
+                </div>
+
+                <div class="project-card pirate fade-in">
+                    <div class="project-icon">🍿🏴‍☠️</div>
+                    <h3>Superflix</h3>
+                    <p><strong>"Netflix dos brabo"</strong> - Agregador de conteúdo... digamos que <em>alternativo</em>. Um projeto que mostra que com conhecimento técnico, tudo é possível.</p>
+                    <a href="https://superflix.omniwhats.com/" target="_blank" class="project-link">
+                        superflix.omniwhats.com →
+                    </a>
+                    <div class="project-tech">
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">Scraping</span>
+                        <span class="tech-tag">Muita coragem</span>
+                    </div>
+                    <p class="pirate-disclaimer">*Disclaimer: Apenas para fins educacionais... claro. 😇</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech">
+        <div class="container">
+            <h2 class="section-title fade-in">🛠️ <span>Tech Stack</span></h2>
+            <p class="section-subtitle fade-in">As ferramentas do dia a dia</p>
+            
+            <div class="tech-section fade-in">
+                <h3>💻 Frontend</h3>
+                <div class="tech-grid">
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                        React
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js">
+                        Next.js
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+                        TypeScript
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                        JavaScript
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind">
+                        Tailwind CSS
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+                        HTML5
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+                        CSS3
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-section fade-in">
+                <h3>⚙️ Backend & Database</h3>
+                <div class="tech-grid">
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+                        Node.js
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
+                        Firebase
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+                        PostgreSQL
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg" alt="Supabase">
+                        Supabase
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-section fade-in">
+                <h3>🚀 DevOps & Tools</h3>
+                <div class="tech-grid">
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+                        Docker
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+                        Linux
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="Nginx">
+                        Nginx
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                        Git
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg" alt="Cloudflare">
+                        Cloudflare
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code">
+                        VS Code
+                    </div>
+                    <div class="tech-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop">
+                        Photoshop
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-section fade-in">
+                <h3>🤖 AI & Vibe Coding</h3>
+                <div class="tech-grid">
+                    <div class="tech-badge">
+                        🧠 Claude Code
+                    </div>
+                    <div class="tech-badge">
+                        💜 Lovable
+                    </div>
+                    <div class="tech-badge">
+                        🔥 Firebase Studio
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Activities Section -->
+    <section id="activities">
+        <div class="container">
+            <h2 class="section-title fade-in">🎯 <span>O que estou fazendo</span></h2>
+            <p class="section-subtitle fade-in">No momento...</p>
+            
+            <div class="activities-list">
+                <div class="activity-item fade-in">
+                    <span class="activity-icon">🔨</span>
+                    <span class="activity-text">Desenvolvendo <strong>OmniImobi</strong> e <strong>OmniTickets</strong></span>
+                </div>
+                <div class="activity-item fade-in">
+                    <span class="activity-icon">🖥️</span>
+                    <span class="activity-text">Explorando soluções <strong>self-hosted</strong> com EasyPanel</span>
+                </div>
+                <div class="activity-item fade-in">
+                    <span class="activity-icon">🤖</span>
+                    <span class="activity-text">Treinado em <strong>IA</strong> e estudando <strong>Vibe Coding</strong></span>
+                </div>
+                <div class="activity-item fade-in">
+                    <span class="activity-icon">🧠</span>
+                    <span class="activity-text">Trabalhando com <strong>Claude Code</strong>, <strong>Lovable</strong> e <strong>Firebase Studio</strong></span>
+                </div>
+                <div class="activity-item fade-in">
+                    <span class="activity-icon">🎮</span>
+                    <span class="activity-text">Jogando alguma coisa no tempo livre</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gaming Section -->
+    <section id="gaming">
+        <div class="container">
+            <h2 class="section-title fade-in">🎮 <span>Gaming</span></h2>
+            <p class="section-subtitle fade-in">Sim, eu jogo. E sim, tem história.</p>
+            
+            <div class="gaming-section fade-in">
+                <a href="https://steamcommunity.com/id/theusnattan" target="_blank" class="social-btn steam" style="margin-bottom: 24px;">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z"/></svg>
+                    <span>Ver perfil na Steam</span>
+                </a>
+                
+                <div class="vac-badge">
+                    🚫 Sim, eu tenho um VAC Ban.
+                </div>
+                
+                <p class="gaming-story">
+                    Era jovem, tinha um inimigo no Rust, a missão era clara: destruir ele a qualquer custo.<br>
+                    A missão foi um sucesso... mas as consequências vieram junto. 😅
+                </p>
+                
+                <p class="gaming-verdict">Worth it? Absolutely. ✅</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-quote">"O melhor código é aquele que resolve o problema sem criar novos." ✨</p>
+            <p class="footer-credit">⚡ Feito com ☕ e muito código por <strong>Matheus Nattan</strong></p>
+        </div>
+    </footer>
+
+    <!-- Scroll Animation Script -->
+    <script>
+        // Typewriter effect
+        const phrases = [
+            "Vibe Coding Practitioner 🤖",
+            "Self-Hosting Enthusiast 🖥️",
+            "Full Stack Developer 🚀",
+            "Gamer nas horas vagas 🎮"
+        ];
+        
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typewriter = document.getElementById('typewriter');
+        
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typewriter.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriter.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+            }
+            
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(type, speed);
+        }
+        
+        type();
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
