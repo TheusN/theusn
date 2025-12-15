@@ -81,6 +81,136 @@ Sistema de automação e gestão de fluxos de trabalho com foco em produtividade
 
 <br>
 
+## 🌐 Sites & Sistemas
+
+<table>
+<tr>
+<td width="50%">
+
+### 🏨 Ecoporto Resort
+Site institucional do resort com sistema de reservas.
+
+🔗 [ecoportoresort.com](https://ecoportoresort.com/)
+
+**Tech:** `WordPress` `Elementor`
+
+</td>
+<td width="50%">
+
+### 🌊 Ecoporto Day Use
+Sistema de reservas para day use do resort.
+
+🔗 [dayuse.ecoportoresort.com](https://dayuse.ecoportoresort.com/)
+
+**Tech:** `Vite` `React`
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 📡 TRG Fiber
+Site institucional de provedor de internet fibra óptica.
+
+🔗 [trgfiber.com.br](https://trgfiber.com.br/)
+
+**Tech:** `WordPress` `Elementor`
+
+</td>
+<td width="50%">
+
+### 🏠 OmniImobi
+Sistema completo de gestão imobiliária.
+
+🔗 [omniimobi.com](https://omniimobi.com/)
+
+**Tech:** `Next.js` `Firebase`
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+
+### 🍿 Superflix
+*"Netflix dos brabo"* - Agregador de conteúdo... digamos que *alternativo*. 🏴‍☠️
+
+🔗 [superflix.omniwhats.com](https://superflix.omniwhats.com/)
+
+**Tech:** `Next.js` `Scraping` `Muita coragem`
+
+*Disclaimer: Apenas para fins educacionais... claro.* 😇
+
+</td>
+</tr>
+</table>
+
+<br>
+
+## 🌐 Sites & Sistemas
+
+<table>
+<tr>
+<td width="50%">
+
+### 🏨 Ecoporto Resort
+Site institucional do resort com sistema de reservas.
+
+🔗 [ecoportoresort.com](https://ecoportoresort.com/)
+
+**Tech:** `WordPress` `Elementor`
+
+</td>
+<td width="50%">
+
+### 🌊 Ecoporto Day Use
+Sistema de reservas para day use do resort.
+
+🔗 [dayuse.ecoportoresort.com](https://dayuse.ecoportoresort.com/)
+
+**Tech:** `Vite` `React`
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 📡 TRG Fiber
+Site institucional de provedor de internet fibra óptica.
+
+🔗 [trgfiber.com.br](https://trgfiber.com.br/)
+
+**Tech:** `WordPress` `Elementor`
+
+</td>
+<td width="50%">
+
+### 🏠 OmniImobi
+Sistema completo de gestão imobiliária.
+
+🔗 [omniimobi.com](https://omniimobi.com/)
+
+**Tech:** `Next.js` `Firebase`
+
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+
+### 🍿 Superflix
+*"Netflix dos brabo"* - Agregador de conteúdo... digamos que *alternativo*. 🏴‍☠️
+
+🔗 [superflix.omniwhats.com](https://superflix.omniwhats.com/)
+
+**Tech:** `Next.js` `Scraping` `Muita coragem`
+
+*Disclaimer: Apenas para fins educacionais... claro.* 😇
+
+</td>
+</tr>
+</table>
+
+<br>
+
 ## 🛠️ Tech Stack
 
 <div align="center">
