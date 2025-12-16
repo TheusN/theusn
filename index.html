@@ -16,19 +16,16 @@
     
     <style>
         :root {
-            --bg-primary: #0f0f1a;
-            --bg-secondary: #1a1b2e;
-            --bg-card: #1e1f35;
-            --accent-primary: #6c63ff;
-            --accent-secondary: #ff6b9d;
-            --accent-tertiary: #00d9ff;
-            --text-primary: #e4e4e7;
-            --text-secondary: #a1a1aa;
-            --text-muted: #71717a;
-            --gradient-1: linear-gradient(135deg, #6c63ff 0%, #ff6b9d 100%);
-            --gradient-2: linear-gradient(135deg, #00d9ff 0%, #6c63ff 100%);
-            --gradient-3: linear-gradient(135deg, #ff6b9d 0%, #ffa500 100%);
-            --glow: 0 0 40px rgba(108, 99, 255, 0.3);
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #111111;
+            --accent-primary: #ffffff;
+            --accent-secondary: #888888;
+            --text-primary: #ffffff;
+            --text-secondary: #aaaaaa;
+            --text-muted: #666666;
+            --border-color: #333333;
+            --glow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -49,42 +46,76 @@
             overflow-x: hidden;
         }
 
-        /* Background Effects */
-        .bg-grid {
+        /* Stars Background */
+        .stars-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(108, 99, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(108, 99, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
             pointer-events: none;
             z-index: 0;
+            overflow: hidden;
         }
 
-        .bg-glow {
-            position: fixed;
-            width: 600px;
-            height: 600px;
+        .star {
+            position: absolute;
+            background: #ffffff;
             border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.15;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--opacity); }
+            50% { opacity: 0.2; }
+        }
+
+        /* Asteroids */
+        .asteroid {
+            position: fixed;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
+            opacity: 0;
+            font-size: var(--size);
+            filter: grayscale(100%) brightness(0.7);
         }
 
-        .bg-glow-1 {
-            top: -200px;
-            right: -200px;
-            background: var(--accent-primary);
+        .asteroid-1 {
+            animation: asteroidMove1 15s linear infinite;
+            --size: 20px;
         }
 
-        .bg-glow-2 {
-            bottom: -200px;
-            left: -200px;
-            background: var(--accent-secondary);
+        .asteroid-2 {
+            animation: asteroidMove2 22s linear infinite;
+            animation-delay: 7s;
+            --size: 14px;
+        }
+
+        .asteroid-3 {
+            animation: asteroidMove3 18s linear infinite;
+            animation-delay: 12s;
+            --size: 24px;
+        }
+
+        @keyframes asteroidMove1 {
+            0% { top: 20%; left: -5%; opacity: 0; transform: rotate(0deg); }
+            5% { opacity: 0.8; }
+            95% { opacity: 0.8; }
+            100% { top: 80%; left: 105%; opacity: 0; transform: rotate(360deg); }
+        }
+
+        @keyframes asteroidMove2 {
+            0% { top: 60%; left: 105%; opacity: 0; transform: rotate(0deg); }
+            5% { opacity: 0.6; }
+            95% { opacity: 0.6; }
+            100% { top: 10%; left: -5%; opacity: 0; transform: rotate(-360deg); }
+        }
+
+        @keyframes asteroidMove3 {
+            0% { top: -5%; left: 30%; opacity: 0; transform: rotate(0deg); }
+            5% { opacity: 0.7; }
+            95% { opacity: 0.7; }
+            100% { top: 105%; left: 70%; opacity: 0; transform: rotate(180deg); }
         }
 
         /* Container */
@@ -93,7 +124,7 @@
             margin: 0 auto;
             padding: 0 20px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         /* Header / Hero */
@@ -113,8 +144,8 @@
             align-items: center;
             gap: 8px;
             padding: 8px 16px;
-            background: var(--bg-card);
-            border: 1px solid rgba(108, 99, 255, 0.3);
+            background: transparent;
+            border: 1px solid var(--border-color);
             border-radius: 50px;
             font-size: 0.85rem;
             color: var(--text-secondary);
@@ -126,14 +157,14 @@
             content: '';
             width: 8px;
             height: 8px;
-            background: #22c55e;
+            background: #ffffff;
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px #fff; }
+            50% { opacity: 0.5; box-shadow: none; }
         }
 
         .hero h1 {
@@ -141,13 +172,11 @@
             font-weight: 700;
             margin-bottom: 8px;
             animation: fadeInUp 0.6s ease 0.1s both;
+            letter-spacing: -2px;
         }
 
         .hero h1 span {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-secondary);
         }
 
         .hero-subtitle {
@@ -160,7 +189,7 @@
         .typewriter {
             font-family: 'JetBrains Mono', monospace;
             font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-            color: var(--accent-tertiary);
+            color: var(--text-muted);
             margin-bottom: 32px;
             animation: fadeInUp 0.6s ease 0.3s both;
         }
@@ -190,9 +219,9 @@
             align-items: center;
             gap: 8px;
             padding: 12px 20px;
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
@@ -201,8 +230,9 @@
         }
 
         .social-btn:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-primary);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
             box-shadow: var(--glow);
         }
 
@@ -210,12 +240,6 @@
             width: 20px;
             height: 20px;
         }
-
-        .social-btn.github:hover { border-color: #fff; }
-        .social-btn.instagram:hover { border-color: #E4405F; }
-        .social-btn.steam:hover { border-color: #00adee; }
-        .social-btn.email:hover { border-color: #ea4335; }
-        .social-btn.discord:hover { border-color: #5865F2; }
 
         .scroll-indicator {
             position: absolute;
@@ -251,23 +275,221 @@
         }
 
         .section-title span {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-secondary);
         }
 
         .section-subtitle {
-            color: var(--text-secondary);
+            color: var(--text-muted);
             font-size: 1.1rem;
             margin-bottom: 48px;
+        }
+
+        /* VS Code Section */
+        .vscode-container {
+            background: #1e1e1e;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+        }
+
+        .vscode-titlebar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #323233;
+            border-bottom: 1px solid #1e1e1e;
+        }
+
+        .vscode-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vscode-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vscode-dot.red { background: #ff5f56; }
+        .vscode-dot.yellow { background: #ffbd2e; }
+        .vscode-dot.green { background: #27ca40; }
+
+        .vscode-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .vscode-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vscode-action {
+            width: 14px;
+            height: 14px;
+            background: #555;
+            border-radius: 2px;
+        }
+
+        .vscode-body {
+            display: flex;
+        }
+
+        .vscode-sidebar {
+            width: 48px;
+            background: #252526;
+            border-right: 1px solid #1e1e1e;
+            padding: 12px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .vscode-icon {
+            width: 24px;
+            height: 24px;
+            opacity: 0.5;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .vscode-icon:hover, .vscode-icon.active {
+            opacity: 1;
+        }
+
+        .vscode-editor {
+            flex: 1;
+            display: flex;
+        }
+
+        .vscode-explorer {
+            width: 200px;
+            background: #252526;
+            border-right: 1px solid #1e1e1e;
+            padding: 8px 0;
+        }
+
+        .vscode-explorer-title {
+            font-size: 0.7rem;
+            color: #888;
+            padding: 4px 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .vscode-file {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .vscode-file:hover {
+            background: #2a2d2e;
+        }
+
+        .vscode-file.active {
+            background: #37373d;
+        }
+
+        .vscode-file-icon {
+            font-size: 0.9rem;
+        }
+
+        .vscode-content {
+            flex: 1;
+            background: #1e1e1e;
+        }
+
+        .vscode-tabs {
+            display: flex;
+            background: #252526;
+            border-bottom: 1px solid #1e1e1e;
+        }
+
+        .vscode-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            color: #888;
+            background: #2d2d2d;
+            border-right: 1px solid #1e1e1e;
+        }
+
+        .vscode-tab.active {
+            background: #1e1e1e;
+            color: #fff;
+            border-top: 1px solid #007acc;
+        }
+
+        .vscode-code {
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            min-height: 200px;
+        }
+
+        .vscode-line {
+            display: flex;
+        }
+
+        .line-number {
+            width: 40px;
+            color: #858585;
+            text-align: right;
+            padding-right: 16px;
+            user-select: none;
+        }
+
+        .line-content {
+            flex: 1;
+        }
+
+        .code-keyword { color: #569cd6; }
+        .code-function { color: #dcdcaa; }
+        .code-string { color: #ce9178; }
+        .code-variable { color: #9cdcfe; }
+        .code-punctuation { color: #d4d4d4; }
+        .code-comment { color: #6a9955; }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: #fff;
+            animation: cursorBlink 1s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .vscode-sidebar,
+            .vscode-explorer {
+                display: none;
+            }
         }
 
         /* Code Block - About */
         .code-block {
             background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             overflow: hidden;
             font-family: 'JetBrains Mono', monospace;
             font-size: clamp(0.75rem, 2vw, 0.9rem);
@@ -278,19 +500,16 @@
             align-items: center;
             gap: 8px;
             padding: 12px 16px;
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .code-dot {
+        .code-dot-gray {
             width: 12px;
             height: 12px;
             border-radius: 50%;
+            background: var(--text-muted);
         }
-
-        .code-dot.red { background: #ff5f56; }
-        .code-dot.yellow { background: #ffbd2e; }
-        .code-dot.green { background: #27ca40; }
 
         .code-content {
             padding: 20px;
@@ -303,11 +522,10 @@
             word-wrap: break-word;
         }
 
-        .code-keyword { color: #ff79c6; }
-        .code-string { color: #f1fa8c; }
-        .code-property { color: #8be9fd; }
-        .code-bracket { color: #bd93f9; }
-        .code-comment { color: #6272a4; }
+        .about-keyword { color: #888; }
+        .about-string { color: #fff; }
+        .about-property { color: #aaa; }
+        .about-bracket { color: #666; }
 
         /* Projects Grid */
         .projects-grid {
@@ -317,40 +535,24 @@
         }
 
         .project-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             padding: 24px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
         .project-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(108, 99, 255, 0.5);
-            box-shadow: var(--glow);
-        }
-
-        .project-card:hover::before {
-            transform: scaleX(1);
+            border-color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .project-icon {
             font-size: 2rem;
             margin-bottom: 16px;
+            filter: grayscale(100%);
         }
 
         .project-card h3 {
@@ -368,15 +570,18 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            color: var(--accent-tertiary);
+            color: var(--text-primary);
             text-decoration: none;
             font-size: 0.9rem;
             margin-bottom: 16px;
             transition: gap 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2px;
         }
 
         .project-link:hover {
             gap: 10px;
+            border-color: var(--text-primary);
         }
 
         .project-tech {
@@ -387,26 +592,21 @@
 
         .tech-tag {
             padding: 4px 10px;
-            background: rgba(108, 99, 255, 0.15);
-            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             font-size: 0.8rem;
-            color: var(--accent-primary);
+            color: var(--text-secondary);
         }
 
-        /* Pirate Card Special */
+        /* Pirate Card */
         .project-card.pirate {
             grid-column: span 2;
-            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 107, 157, 0.1) 100%);
-            border-color: rgba(255, 107, 157, 0.3);
-        }
-
-        .project-card.pirate::before {
-            background: var(--gradient-3);
+            border-color: #444;
         }
 
         .project-card.pirate:hover {
-            border-color: rgba(255, 107, 157, 0.6);
-            box-shadow: 0 0 40px rgba(255, 107, 157, 0.2);
+            border-color: #888;
         }
 
         .pirate-disclaimer {
@@ -447,43 +647,31 @@
             align-items: center;
             gap: 8px;
             padding: 10px 16px;
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
         .tech-badge:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-primary);
+            border-color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .tech-badge img {
             width: 20px;
             height: 20px;
+            filter: grayscale(100%);
         }
 
         /* Gaming Section */
         .gaming-section {
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             padding: 40px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gaming-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.05) 0%, transparent 50%);
-            pointer-events: none;
         }
 
         .vac-badge {
@@ -491,10 +679,10 @@
             align-items: center;
             gap: 8px;
             padding: 8px 20px;
-            background: rgba(255, 0, 0, 0.15);
-            border: 1px solid rgba(255, 0, 0, 0.3);
+            background: transparent;
+            border: 1px solid #666;
             border-radius: 50px;
-            color: #ff6b6b;
+            color: #aaa;
             font-weight: 600;
             margin-bottom: 20px;
         }
@@ -510,7 +698,7 @@
         .gaming-verdict {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #22c55e;
+            color: var(--text-primary);
         }
 
         /* Current Activities */
@@ -525,19 +713,19 @@
             align-items: center;
             gap: 16px;
             padding: 20px;
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
 
         .activity-item:hover {
-            border-color: var(--accent-primary);
-            transform: translateX(5px);
+            border-color: var(--text-secondary);
         }
 
         .activity-icon {
             font-size: 1.5rem;
+            filter: grayscale(100%);
         }
 
         .activity-text {
@@ -545,14 +733,14 @@
         }
 
         .activity-text strong {
-            color: var(--accent-primary);
+            color: var(--text-primary);
         }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 60px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid var(--border-color);
         }
 
         .footer-quote {
@@ -569,25 +757,13 @@
 
         /* Animations */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .fade-in {
@@ -603,56 +779,27 @@
 
         /* Mobile Responsive */
         @media (max-width: 600px) {
-            .hero {
-                padding: 60px 16px;
-            }
-
-            .social-buttons {
-                gap: 8px;
-            }
-
-            .social-btn {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            .social-btn span {
-                display: none;
-            }
-
-            .social-btn svg {
-                width: 22px;
-                height: 22px;
-            }
-
-            section {
-                padding: 60px 0;
-            }
-
-            .code-content {
-                padding: 16px;
-            }
-
-            .project-card {
-                padding: 20px;
-            }
-
-            .gaming-section {
-                padding: 30px 20px;
-            }
-
-            .tech-badge {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
+            .hero { padding: 60px 16px; }
+            .social-buttons { gap: 8px; }
+            .social-btn { padding: 10px 14px; font-size: 0.85rem; }
+            .social-btn span { display: none; }
+            .social-btn svg { width: 22px; height: 22px; }
+            section { padding: 60px 0; }
+            .code-content { padding: 16px; }
+            .project-card { padding: 20px; }
+            .gaming-section { padding: 30px 20px; }
+            .tech-badge { padding: 8px 12px; font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Background Effects -->
-    <div class="bg-grid"></div>
-    <div class="bg-glow bg-glow-1"></div>
-    <div class="bg-glow bg-glow-2"></div>
+    <!-- Stars Background -->
+    <div class="stars-container" id="stars"></div>
+
+    <!-- Asteroids -->
+    <div class="asteroid asteroid-1">🪨</div>
+    <div class="asteroid asteroid-2">🪨</div>
+    <div class="asteroid asteroid-3">🪨</div>
 
     <!-- Hero Section -->
     <header class="hero">
@@ -664,32 +811,116 @@
         <p class="typewriter" id="typewriter">Vibe Coding Practitioner</p>
         
         <div class="social-buttons">
-            <a href="https://github.com/theusnattan" target="_blank" class="social-btn github">
+            <a href="https://github.com/theusnattan" target="_blank" class="social-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 <span>GitHub</span>
             </a>
-            <a href="https://instagram.com/theusnattan" target="_blank" class="social-btn instagram">
+            <a href="https://instagram.com/theusnattan" target="_blank" class="social-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 <span>Instagram</span>
             </a>
-            <a href="https://steamcommunity.com/id/theusnattan" target="_blank" class="social-btn steam">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/></svg>
+            <a href="https://steamcommunity.com/id/theusnattan" target="_blank" class="social-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z"/></svg>
                 <span>Steam</span>
             </a>
-            <a href="mailto:matheusnattan8@gmail.com" class="social-btn email">
+            <a href="mailto:matheusnattan8@gmail.com" class="social-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
                 <span>Email</span>
             </a>
-            <a href="https://discord.com/users/theusn" target="_blank" class="social-btn discord">
+            <a href="https://discord.com/users/theusn" target="_blank" class="social-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
                 <span>Discord</span>
             </a>
         </div>
 
-        <a href="#about" class="scroll-indicator">
+        <a href="#vscode" class="scroll-indicator">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </a>
     </header>
+
+    <!-- VS Code Section -->
+    <section id="vscode">
+        <div class="container">
+            <h2 class="section-title fade-in">💻 <span>Meu primeiro código</span></h2>
+            <p class="section-subtitle fade-in">Tudo começa com um "helou uordi"</p>
+            
+            <div class="vscode-container fade-in">
+                <div class="vscode-titlebar">
+                    <div class="vscode-dots">
+                        <div class="vscode-dot red"></div>
+                        <div class="vscode-dot yellow"></div>
+                        <div class="vscode-dot green"></div>
+                    </div>
+                    <div class="vscode-title">helou.js - theusn - Visual Studio Code</div>
+                    <div class="vscode-actions">
+                        <div class="vscode-action"></div>
+                        <div class="vscode-action"></div>
+                        <div class="vscode-action"></div>
+                    </div>
+                </div>
+                <div class="vscode-body">
+                    <div class="vscode-sidebar">
+                        <svg class="vscode-icon active" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 0h-9L7 1.5V6H2.5L1 7.5v15.07L2.5 24h12.07L16 22.57V18h4.7l1.3-1.43V4.5L17.5 0zm0 2.12l2.38 2.38H17.5V2.12zm-3 20.38H3v-15h4v9.57L8.5 18H14.5v4.5zm6-.5H9v-15h4.5v-5h8v20z"/></svg>
+                        <svg class="vscode-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M15.25 0a8.25 8.25 0 0 0-6.18 13.72L1 22.88l1.12 1.12 8.16-9.07A8.25 8.25 0 1 0 15.25 0zm0 15a6.75 6.75 0 1 1 0-13.5 6.75 6.75 0 0 1 0 13.5z"/></svg>
+                        <svg class="vscode-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21.007 8.222A3.738 3.738 0 0 0 15.045 5.2a3.737 3.737 0 0 0-6.09 0 3.738 3.738 0 0 0-5.962 3.022c0 .297.035.59.102.875a3.738 3.738 0 0 0 1.387 7.203h.09a3.738 3.738 0 0 0 5.973 2.438 3.738 3.738 0 0 0 5.91 0 3.738 3.738 0 0 0 5.973-2.438h.09a3.738 3.738 0 0 0 1.387-7.203 3.726 3.726 0 0 0 .102-.875z"/></svg>
+                    </div>
+                    <div class="vscode-editor">
+                        <div class="vscode-explorer">
+                            <div class="vscode-explorer-title">Explorer</div>
+                            <div class="vscode-file active">
+                                <span class="vscode-file-icon">📄</span>
+                                helou.js
+                            </div>
+                            <div class="vscode-file">
+                                <span class="vscode-file-icon">📁</span>
+                                node_modules
+                            </div>
+                            <div class="vscode-file">
+                                <span class="vscode-file-icon">📄</span>
+                                package.json
+                            </div>
+                        </div>
+                        <div class="vscode-content">
+                            <div class="vscode-tabs">
+                                <div class="vscode-tab active">
+                                    <span>📄</span>
+                                    helou.js
+                                </div>
+                            </div>
+                            <div class="vscode-code" id="vscode-code">
+                                <div class="vscode-line">
+                                    <span class="line-number">1</span>
+                                    <span class="line-content">
+                                        <span class="code-comment">// meu primeiro codigo 😎</span>
+                                    </span>
+                                </div>
+                                <div class="vscode-line">
+                                    <span class="line-number">2</span>
+                                    <span class="line-content"></span>
+                                </div>
+                                <div class="vscode-line">
+                                    <span class="line-number">3</span>
+                                    <span class="line-content" id="typing-line">
+                                        <span class="typing-cursor"></span>
+                                    </span>
+                                </div>
+                                <div class="vscode-line">
+                                    <span class="line-number">4</span>
+                                    <span class="line-content"></span>
+                                </div>
+                                <div class="vscode-line">
+                                    <span class="line-number">5</span>
+                                    <span class="line-content">
+                                        <span class="code-comment">// funcionou!! 🚀</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- About Section -->
     <section id="about">
@@ -699,32 +930,32 @@
             
             <div class="code-block fade-in">
                 <div class="code-header">
-                    <div class="code-dot red"></div>
-                    <div class="code-dot yellow"></div>
-                    <div class="code-dot green"></div>
+                    <div class="code-dot-gray"></div>
+                    <div class="code-dot-gray"></div>
+                    <div class="code-dot-gray"></div>
                 </div>
                 <div class="code-content">
-                    <pre><span class="code-keyword">const</span> <span class="code-property">theusn</span> = <span class="code-bracket">{</span>
-    <span class="code-property">nome</span>: <span class="code-string">"Matheus Nattan"</span>,
-    <span class="code-property">localização</span>: <span class="code-string">"Brasil 🇧🇷"</span>,
-    <span class="code-property">papel</span>: <span class="code-string">"Full Stack Developer"</span>,
+                    <pre><span class="about-keyword">const</span> <span class="about-property">theusn</span> <span class="about-bracket">=</span> <span class="about-bracket">{</span>
+    <span class="about-property">nome</span>: <span class="about-string">"Matheus Nattan"</span>,
+    <span class="about-property">localização</span>: <span class="about-string">"Brasil 🇧🇷"</span>,
+    <span class="about-property">papel</span>: <span class="about-string">"Full Stack Developer"</span>,
     
-    <span class="code-property">stack</span>: <span class="code-bracket">{</span>
-        <span class="code-property">frontend</span>: [<span class="code-string">"React"</span>, <span class="code-string">"Next.js"</span>, <span class="code-string">"TypeScript"</span>, <span class="code-string">"Tailwind"</span>],
-        <span class="code-property">backend</span>: [<span class="code-string">"Node.js"</span>, <span class="code-string">"Firebase"</span>, <span class="code-string">"PostgreSQL"</span>, <span class="code-string">"Supabase"</span>],
-        <span class="code-property">devOps</span>: [<span class="code-string">"Docker"</span>, <span class="code-string">"EasyPanel"</span>, <span class="code-string">"Linux"</span>, <span class="code-string">"Nginx"</span>],
-        <span class="code-property">vibeCoding</span>: [<span class="code-string">"Claude Code"</span>, <span class="code-string">"Lovable"</span>, <span class="code-string">"Firebase Studio"</span>]
-    <span class="code-bracket">}</span>,
+    <span class="about-property">stack</span>: <span class="about-bracket">{</span>
+        <span class="about-property">frontend</span>: [<span class="about-string">"React"</span>, <span class="about-string">"Next.js"</span>, <span class="about-string">"TypeScript"</span>, <span class="about-string">"Tailwind"</span>],
+        <span class="about-property">backend</span>: [<span class="about-string">"Node.js"</span>, <span class="about-string">"Firebase"</span>, <span class="about-string">"PostgreSQL"</span>, <span class="about-string">"Supabase"</span>],
+        <span class="about-property">devOps</span>: [<span class="about-string">"Docker"</span>, <span class="about-string">"EasyPanel"</span>, <span class="about-string">"Linux"</span>, <span class="about-string">"Nginx"</span>],
+        <span class="about-property">vibeCoding</span>: [<span class="about-string">"Claude Code"</span>, <span class="about-string">"Lovable"</span>, <span class="about-string">"Firebase Studio"</span>]
+    <span class="about-bracket">}</span>,
     
-    <span class="code-property">interesses</span>: [
-        <span class="code-string">"Self-Hosting 🖥️"</span>,
-        <span class="code-string">"SaaS Development 💼"</span>,
-        <span class="code-string">"Media Servers 🎬"</span>,
-        <span class="code-string">"Gaming 🎮"</span>
+    <span class="about-property">interesses</span>: [
+        <span class="about-string">"Self-Hosting 🖥️"</span>,
+        <span class="about-string">"SaaS Development 💼"</span>,
+        <span class="about-string">"Media Servers 🎬"</span>,
+        <span class="about-string">"Gaming 🎮"</span>
     ],
     
-    <span class="code-property">funFact</span>: <span class="code-string">"Prefiro hospedar eu mesmo do que depender de terceiros 😎"</span>
-<span class="code-bracket">}</span>;</pre>
+    <span class="about-property">funFact</span>: <span class="about-string">"Prefiro hospedar eu mesmo do que depender de terceiros 😎"</span>
+<span class="about-bracket">}</span>;</pre>
                 </div>
             </div>
         </div>
@@ -741,9 +972,7 @@
                     <div class="project-icon">🏨</div>
                     <h3>Ecoporto Resort</h3>
                     <p>Site institucional do resort com sistema de reservas e informações completas.</p>
-                    <a href="https://ecoportoresort.com/" target="_blank" class="project-link">
-                        ecoportoresort.com →
-                    </a>
+                    <a href="https://ecoportoresort.com/" target="_blank" class="project-link">ecoportoresort.com →</a>
                     <div class="project-tech">
                         <span class="tech-tag">WordPress</span>
                         <span class="tech-tag">Elementor</span>
@@ -754,9 +983,7 @@
                     <div class="project-icon">🌊</div>
                     <h3>Ecoporto Day Use</h3>
                     <p>Sistema de reservas para day use do resort com interface moderna.</p>
-                    <a href="https://dayuse.ecoportoresort.com/" target="_blank" class="project-link">
-                        dayuse.ecoportoresort.com →
-                    </a>
+                    <a href="https://dayuse.ecoportoresort.com/" target="_blank" class="project-link">dayuse.ecoportoresort.com →</a>
                     <div class="project-tech">
                         <span class="tech-tag">Vite</span>
                         <span class="tech-tag">React</span>
@@ -767,9 +994,7 @@
                     <div class="project-icon">📡</div>
                     <h3>TRG Fiber</h3>
                     <p>Site institucional de provedor de internet fibra óptica.</p>
-                    <a href="https://trgfiber.com.br/" target="_blank" class="project-link">
-                        trgfiber.com.br →
-                    </a>
+                    <a href="https://trgfiber.com.br/" target="_blank" class="project-link">trgfiber.com.br →</a>
                     <div class="project-tech">
                         <span class="tech-tag">WordPress</span>
                         <span class="tech-tag">Elementor</span>
@@ -780,9 +1005,7 @@
                     <div class="project-icon">🏠</div>
                     <h3>OmniImobi</h3>
                     <p>Sistema completo de gestão imobiliária com dashboard administrativo.</p>
-                    <a href="https://omniimobi.com/" target="_blank" class="project-link">
-                        omniimobi.com →
-                    </a>
+                    <a href="https://omniimobi.com/" target="_blank" class="project-link">omniimobi.com →</a>
                     <div class="project-tech">
                         <span class="tech-tag">Next.js</span>
                         <span class="tech-tag">Firebase</span>
@@ -793,9 +1016,7 @@
                     <div class="project-icon">🍿🏴‍☠️</div>
                     <h3>Superflix</h3>
                     <p><strong>"Netflix dos brabo"</strong> - Agregador de conteúdo... digamos que <em>alternativo</em>. Um projeto que mostra que com conhecimento técnico, tudo é possível.</p>
-                    <a href="https://superflix.omniwhats.com/" target="_blank" class="project-link">
-                        superflix.omniwhats.com →
-                    </a>
+                    <a href="https://superflix.omniwhats.com/" target="_blank" class="project-link">superflix.omniwhats.com →</a>
                     <div class="project-tech">
                         <span class="tech-tag">Next.js</span>
                         <span class="tech-tag">Scraping</span>
@@ -816,105 +1037,45 @@
             <div class="tech-section fade-in">
                 <h3>💻 Frontend</h3>
                 <div class="tech-grid">
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
-                        React
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js">
-                        Next.js
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
-                        TypeScript
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
-                        JavaScript
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind">
-                        Tailwind CSS
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
-                        HTML5
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
-                        CSS3
-                    </div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"> React</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js"> Next.js</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript"> TypeScript</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"> JavaScript</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind"> Tailwind CSS</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5"> HTML5</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"> CSS3</div>
                 </div>
             </div>
 
             <div class="tech-section fade-in">
                 <h3>⚙️ Backend & Database</h3>
                 <div class="tech-grid">
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
-                        Node.js
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
-                        Firebase
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
-                        PostgreSQL
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg" alt="Supabase">
-                        Supabase
-                    </div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js"> Node.js</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase"> Firebase</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"> PostgreSQL</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg" alt="Supabase"> Supabase</div>
                 </div>
             </div>
 
             <div class="tech-section fade-in">
                 <h3>🚀 DevOps & Tools</h3>
                 <div class="tech-grid">
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
-                        Docker
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
-                        Linux
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="Nginx">
-                        Nginx
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
-                        Git
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg" alt="Cloudflare">
-                        Cloudflare
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code">
-                        VS Code
-                    </div>
-                    <div class="tech-badge">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop">
-                        Photoshop
-                    </div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"> Docker</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"> Linux</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="Nginx"> Nginx</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"> Git</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg" alt="Cloudflare"> Cloudflare</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code"> VS Code</div>
+                    <div class="tech-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop"> Photoshop</div>
                 </div>
             </div>
 
             <div class="tech-section fade-in">
                 <h3>🤖 AI & Vibe Coding</h3>
                 <div class="tech-grid">
-                    <div class="tech-badge">
-                        🧠 Claude Code
-                    </div>
-                    <div class="tech-badge">
-                        💜 Lovable
-                    </div>
-                    <div class="tech-badge">
-                        🔥 Firebase Studio
-                    </div>
+                    <div class="tech-badge">🧠 Claude Code</div>
+                    <div class="tech-badge">💜 Lovable</div>
+                    <div class="tech-badge">🔥 Firebase Studio</div>
                 </div>
             </div>
         </div>
@@ -927,26 +1088,11 @@
             <p class="section-subtitle fade-in">No momento...</p>
             
             <div class="activities-list">
-                <div class="activity-item fade-in">
-                    <span class="activity-icon">🔨</span>
-                    <span class="activity-text">Desenvolvendo <strong>OmniImobi</strong> e <strong>OmniTickets</strong></span>
-                </div>
-                <div class="activity-item fade-in">
-                    <span class="activity-icon">🖥️</span>
-                    <span class="activity-text">Explorando soluções <strong>self-hosted</strong> com EasyPanel</span>
-                </div>
-                <div class="activity-item fade-in">
-                    <span class="activity-icon">🤖</span>
-                    <span class="activity-text">Treinado em <strong>IA</strong> e estudando <strong>Vibe Coding</strong></span>
-                </div>
-                <div class="activity-item fade-in">
-                    <span class="activity-icon">🧠</span>
-                    <span class="activity-text">Trabalhando com <strong>Claude Code</strong>, <strong>Lovable</strong> e <strong>Firebase Studio</strong></span>
-                </div>
-                <div class="activity-item fade-in">
-                    <span class="activity-icon">🎮</span>
-                    <span class="activity-text">Jogando alguma coisa no tempo livre</span>
-                </div>
+                <div class="activity-item fade-in"><span class="activity-icon">🔨</span><span class="activity-text">Desenvolvendo <strong>OmniImobi</strong> e <strong>OmniTickets</strong></span></div>
+                <div class="activity-item fade-in"><span class="activity-icon">🖥️</span><span class="activity-text">Explorando soluções <strong>self-hosted</strong> com EasyPanel</span></div>
+                <div class="activity-item fade-in"><span class="activity-icon">🤖</span><span class="activity-text">Treinado em <strong>IA</strong> e estudando <strong>Vibe Coding</strong></span></div>
+                <div class="activity-item fade-in"><span class="activity-icon">🧠</span><span class="activity-text">Trabalhando com <strong>Claude Code</strong>, <strong>Lovable</strong> e <strong>Firebase Studio</strong></span></div>
+                <div class="activity-item fade-in"><span class="activity-icon">🎮</span><span class="activity-text">Jogando alguma coisa no tempo livre</span></div>
             </div>
         </div>
     </section>
@@ -958,20 +1104,12 @@
             <p class="section-subtitle fade-in">Sim, eu jogo. E sim, tem história.</p>
             
             <div class="gaming-section fade-in">
-                <a href="https://steamcommunity.com/id/theusnattan" target="_blank" class="social-btn steam" style="margin-bottom: 24px;">
+                <a href="https://steamcommunity.com/id/theusnattan" target="_blank" class="social-btn" style="margin-bottom: 24px;">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z"/></svg>
                     <span>Ver perfil na Steam</span>
                 </a>
-                
-                <div class="vac-badge">
-                    🚫 Sim, eu tenho um VAC Ban.
-                </div>
-                
-                <p class="gaming-story">
-                    Era jovem, tinha um inimigo no Rust, a missão era clara: destruir ele a qualquer custo.<br>
-                    A missão foi um sucesso... mas as consequências vieram junto. 😅
-                </p>
-                
+                <div class="vac-badge">🚫 Sim, eu tenho um VAC Ban.</div>
+                <p class="gaming-story">Era jovem, tinha um inimigo no Rust, a missão era clara: destruir ele a qualquer custo.<br>A missão foi um sucesso... mas as consequências vieram junto. 😅</p>
                 <p class="gaming-verdict">Worth it? Absolutely. ✅</p>
             </div>
         </div>
@@ -985,62 +1123,87 @@
         </div>
     </footer>
 
-    <!-- Scroll Animation Script -->
     <script>
-        // Typewriter effect
-        const phrases = [
-            "Vibe Coding Practitioner 🤖",
-            "Self-Hosting Enthusiast 🖥️",
-            "Full Stack Developer 🚀",
-            "Gamer nas horas vagas 🎮"
-        ];
-        
-        let phraseIndex = 0;
+        // Generate stars
+        function createStars() {
+            const container = document.getElementById('stars');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 2 + 1;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = Math.random() * 3 + 2;
+                const opacity = Math.random() * 0.7 + 0.3;
+                
+                star.style.cssText = `width: ${size}px; height: ${size}px; left: ${x}%; top: ${y}%; --duration: ${duration}s; --opacity: ${opacity};`;
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        // VS Code typing animation
+        const typingLine = document.getElementById('typing-line');
         let charIndex = 0;
-        let isDeleting = false;
+        let plainText = 'console.log("helou uordi");';
+        
+        function typeCode() {
+            if (charIndex < plainText.length) {
+                const currentText = plainText.substring(0, charIndex + 1);
+                let html = currentText;
+                
+                // Colorize progressively
+                html = html.replace(/console/g, '<span class="code-function">console</span>');
+                html = html.replace(/\.log/g, '<span class="code-punctuation">.</span><span class="code-function">log</span>');
+                html = html.replace(/\(/g, '<span class="code-punctuation">(</span>');
+                html = html.replace(/\)/g, '<span class="code-punctuation">)</span>');
+                html = html.replace(/;/g, '<span class="code-punctuation">;</span>');
+                html = html.replace(/"([^"]*)"/g, '<span class="code-string">"$1"</span>');
+                
+                typingLine.innerHTML = html + '<span class="typing-cursor"></span>';
+                charIndex++;
+                setTimeout(typeCode, Math.random() * 100 + 50);
+            } else {
+                setTimeout(() => {
+                    charIndex = 0;
+                    typingLine.innerHTML = '<span class="typing-cursor"></span>';
+                    setTimeout(typeCode, 1000);
+                }, 4000);
+            }
+        }
+        setTimeout(typeCode, 2000);
+
+        // Hero typewriter
+        const phrases = ["Vibe Coding Practitioner 🤖", "Self-Hosting Enthusiast 🖥️", "Full Stack Developer 🚀", "Gamer nas horas vagas 🎮"];
+        let phraseIndex = 0, heroCharIndex = 0, isDeleting = false;
         const typewriter = document.getElementById('typewriter');
         
         function type() {
             const currentPhrase = phrases[phraseIndex];
-            
             if (isDeleting) {
-                typewriter.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
+                typewriter.textContent = currentPhrase.substring(0, heroCharIndex - 1);
+                heroCharIndex--;
             } else {
-                typewriter.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
+                typewriter.textContent = currentPhrase.substring(0, heroCharIndex + 1);
+                heroCharIndex++;
             }
-            
-            if (!isDeleting && charIndex === currentPhrase.length) {
+            if (!isDeleting && heroCharIndex === currentPhrase.length) {
                 setTimeout(() => isDeleting = true, 2000);
-            } else if (isDeleting && charIndex === 0) {
+            } else if (isDeleting && heroCharIndex === 0) {
                 isDeleting = false;
                 phraseIndex = (phraseIndex + 1) % phrases.length;
             }
-            
-            const speed = isDeleting ? 50 : 100;
-            setTimeout(type, speed);
+            setTimeout(type, isDeleting ? 50 : 100);
         }
-        
         type();
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // Fade-in observer
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
